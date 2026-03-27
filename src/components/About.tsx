@@ -13,6 +13,7 @@ export default function About() {
         <motion.div
           animate={{ y: [-8, 8, -8] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          style={{ willChange: "transform" }}
           className="glass-panel p-8 md:p-12 rounded-[2rem] relative overflow-hidden text-center md:text-left group"
         >
           {/* Smooth Shine Effect */}
@@ -24,7 +25,7 @@ export default function About() {
           <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
             <div className="flex-1 space-y-6 text-lg md:text-xl leading-relaxed text-white/80 font-sans font-light">
               <p>
-                Saya <strong className="text-white font-semibold">Savira Az Zahra Arnindhita</strong>, mahasiswi D4 Desain Grafis UNESA yang berbasis di Surabaya. Saya mengombinasikan ketelitian detail dalam ilustrasi naratif dengan pendekatan minimalis-elegan dalam desain grafis. Bagi saya, desain yang kuat adalah yang mampu menyampaikan pesan secara fungsional melalui kesederhanaan yang estetis.
+                Hi! I’m <strong className="text-white font-semibold">Savira Az Zahra Arnindhita</strong>, a Graphic Design student at the State University of Surabaya. Based in Surabaya, I have been active as a freelance illustrator since my school years. This long-standing journey has sharpened my visual intuition, allowing me to seamlessly blend intricate illustration details with functional graphic design solutions.
               </p>
             </div>
           </div>
@@ -32,6 +33,7 @@ export default function About() {
           {/* Decorative star */}
           <motion.div
             className="absolute -bottom-6 -right-6 text-white/10"
+            style={{ willChange: "transform" }}
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >

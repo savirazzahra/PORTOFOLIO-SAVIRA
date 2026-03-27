@@ -28,6 +28,15 @@ const skills = [
   { name: 'Corel Draw', score: 7, icon: PenTool, color: 'text-green-300' },
 ];
 
+const softSkills = [
+  "Visual & Verbal Communication",
+  "Time Management",
+  "Adaptability",
+  "Attention to Detail",
+  "Resilience to Criticism",
+  "Collaboration & Teamwork"
+];
+
 export default function Skills() {
   return (
     <section className="relative z-10 py-20">
@@ -81,16 +90,46 @@ export default function Skills() {
               {/* Progress Bar Container */}
               <div className="h-2.5 w-full bg-black/40 rounded-full overflow-hidden relative z-10 border border-white/10 shadow-inner">
                 <motion.div
-                  className={`h-full bg-gradient-to-r from-white/40 to-white rounded-full`}
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${(skill.score / 10) * 100}%` }}
+                  className={`h-full w-full bg-gradient-to-r from-white/40 to-white rounded-full origin-left`}
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: skill.score / 10 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1.5, delay: 0.2 + (index * 0.1), type: "spring", bounce: 0.2 }}
+                  style={{ willChange: "transform" }}
                 />
               </div>
             </motion.div>
           );
         })}
+      </div>
+
+      <div className="mt-32 max-w-4xl mx-auto text-center px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+          className="flex flex-col items-center"
+        >
+          <h3 className="text-2xl md:text-4xl font-serif italic text-white/80 mb-10">
+            Soft Skills
+          </h3>
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+            {softSkills.map((skill, idx) => (
+              <motion.div
+                key={skill}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.15)" }}
+                className="px-6 py-3 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-sm md:text-base text-white/90 font-medium tracking-wide cursor-default transition-colors shadow-lg"
+              >
+                {skill}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

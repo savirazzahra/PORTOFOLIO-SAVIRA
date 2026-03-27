@@ -7,6 +7,7 @@ export default function FloatingElements() {
       {/* Abstract Gothic Cross / Star 1 */}
       <motion.div
         className="absolute top-1/4 left-1/4 text-white/10"
+        style={{ willChange: "transform" }}
         animate={{
           rotate: [0, 360],
           y: [0, -20, 0],
@@ -22,6 +23,7 @@ export default function FloatingElements() {
       {/* Abstract Gothic Cross / Star 2 */}
       <motion.div
         className="absolute bottom-1/3 right-1/4 text-white/5"
+        style={{ willChange: "transform" }}
         animate={{
           rotate: [360, 0],
           y: [0, 30, 0],
@@ -37,6 +39,7 @@ export default function FloatingElements() {
       {/* Abstract Blur Orbs */}
       <motion.div 
         className="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-red-900/20 blur-[120px]"
+        style={{ willChange: "transform, opacity" }}
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.5, 0.8, 0.5],
@@ -45,6 +48,7 @@ export default function FloatingElements() {
       />
       <motion.div 
         className="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-black/40 blur-[100px]"
+        style={{ willChange: "transform" }}
         animate={{
           scale: [1, 1.1, 1],
         }}

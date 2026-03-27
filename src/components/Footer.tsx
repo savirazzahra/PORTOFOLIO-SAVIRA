@@ -26,6 +26,7 @@ function MagneticButton({ children, onClick }: { children: React.ReactNode, onCl
       onMouseLeave={reset}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      style={{ willChange: "transform" }}
       className="glass-pill px-8 py-4 md:px-12 md:py-6 flex items-center gap-4 group hover:bg-white/10 transition-colors duration-300 relative overflow-hidden w-full justify-center"
     >
       {/* Background Glow on Hover */}
@@ -52,7 +53,7 @@ function CollaborateSection() {
     <div className="relative w-[340px] md:w-[480px] h-[140px] flex items-center justify-center mt-8" style={{ perspective: '1000px' }}>
       <motion.div
         className="w-full h-full relative"
-        style={{ transformStyle: 'preserve-3d' }}
+        style={{ transformStyle: 'preserve-3d', willChange: "transform" }}
         animate={{ rotateX: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, type: 'spring', stiffness: 100, damping: 15 }}
       >

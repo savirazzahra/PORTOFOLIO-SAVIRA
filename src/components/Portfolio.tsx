@@ -1,5 +1,6 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { X } from 'lucide-react';
 
 const row1 = [
   { id: 1, title: 'Gothic Reverie', src: 'https://github.com/user-attachments/assets/166d9a77-17f7-426a-9c0a-bba76798fbfc', shape: 'square' },
@@ -23,19 +24,19 @@ const row3 = [
 ];
 
 const row4 = [
-  { id: 13, title: 'Editorial', src: 'https://github.com/user-attachments/assets/51e7b42d-d61e-4f71-8017-4e9d4ae54fa1', shape: 'landscape' },
+  { id: 13, title: 'Editorial', src: 'https://github.com/user-attachments/assets/c9ba74fc-73cd-43b3-8747-2133d0e2fa6d', shape: 'landscape' },
   { id: 14, title: 'Poster', src: 'https://github.com/user-attachments/assets/f6979b02-ba6b-4de8-b86a-5f9e6f030586', shape: 'portrait' },
-  { id: 15, title: 'Web Design', src: 'https://github.com/user-attachments/assets/0138f2cb-0ba3-408b-9592-8ca883ebf26d', shape: 'landscape' },
-  { id: 16, title: 'Logo', src: 'https://github.com/user-attachments/assets/a7f0346e-4880-4f6a-a095-651a9ec60b0a', shape: 'portrait' },
+  { id: 15, title: 'Web Design', src: 'https://github.com/user-attachments/assets/17d3f935-31da-44aa-b567-1a442d4a843f', shape: 'landscape' },
+  { id: 16, title: 'Logo', src: 'https://github.com/user-attachments/assets/93c04045-4ed0-4048-ae5a-1022ca02ed34', shape: 'portrait' },
 ];
 
-const MarqueeTrack = ({ items, reverse = false }: { items: any[], reverse?: boolean }) => {
+const MarqueeTrack = ({ items, reverse = false, onImageClick }: { items: any[], reverse?: boolean, onImageClick: (item: any) => void }) => {
   // Duplicate items to create a seamless infinite loop
   const duplicatedItems = [...items, ...items, ...items, ...items];
 
   return (
     <div className="flex overflow-hidden w-full py-4 items-center">
-      <div className={`flex w-max gap-4 md:gap-6 px-2 md:px-3 ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'} pause-on-hover items-center`}>
+      <div className={`flex w-max gap-4 md:gap-6 px-2 md:px-3 ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'} items-center`}>
         {duplicatedItems.map((item, idx) => {
           let dimensions = 'w-[200px] md:w-[300px] h-[200px] md:h-[300px]';
           if (item.shape === 'landscape') {
@@ -47,7 +48,9 @@ const MarqueeTrack = ({ items, reverse = false }: { items: any[], reverse?: bool
           return (
             <div 
               key={`${item.id}-${idx}`} 
-              className={`relative overflow-hidden rounded-[1.5rem] glass-card p-2 shrink-0 ${dimensions}`}
+              onClick={() => onImageClick(item)}
+              style={{ willChange: "transform" }}
+              className={`relative overflow-hidden rounded-[1.5rem] glass-card p-2 shrink-0 ${dimensions} transition-transform duration-500 hover:scale-[1.05] hover:z-10 cursor-pointer`}
             >
             <div className="w-full h-full rounded-xl overflow-hidden relative group">
               <img 
@@ -66,6 +69,8 @@ const MarqueeTrack = ({ items, reverse = false }: { items: any[], reverse?: bool
 };
 
 export default function Portfolio() {
+  const [selectedImage, setSelectedImage] = useState<any | null>(null);
+
   return (
     <div className="flex flex-col gap-20">
       <section className="relative z-10 pt-20 overflow-hidden">
@@ -83,8 +88,8 @@ export default function Portfolio() {
         </motion.div>
 
         <div className="w-full flex flex-col gap-4 md:gap-6">
-          <MarqueeTrack items={row1} />
-          <MarqueeTrack items={row2} reverse={true} />
+          <MarqueeTrack items={row1} onImageClick={setSelectedImage} />
+          <MarqueeTrack items={row2} reverse={true} onImageClick={setSelectedImage} />
         </div>
       </section>
 
@@ -103,12 +108,40 @@ export default function Portfolio() {
         </motion.div>
 
         <div className="w-full flex flex-col gap-4 md:gap-6">
-          <MarqueeTrack items={row3} />
-          <MarqueeTrack items={row4} reverse={true} />
+          <MarqueeTrack items={row3} onImageClick={setSelectedImage} />
+          <MarqueeTrack items={row4} reverse={true} onImageClick={setSelectedImage} />
         </div>
       </section>
 
-
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button 
+              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-50 p-2 bg-black/50 rounded-full"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X size={24} />
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              src={selectedImage.src}
+              alt={selectedImage.title}
+              className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
