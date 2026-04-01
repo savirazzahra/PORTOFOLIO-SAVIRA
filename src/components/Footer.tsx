@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { motion } from 'motion/react';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Mail, Phone, User, X } from 'lucide-react';
 
 function MagneticButton({ children, onClick }: { children: React.ReactNode, onClick?: () => void }) {
@@ -102,8 +102,37 @@ function CollaborateSection() {
 }
 
 export default function Footer() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHoveringSocials, setIsHoveringSocials] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <footer className="relative z-10 py-32 flex flex-col items-center justify-center text-center overflow-hidden">
+      <AnimatePresence>
+        {isHoveringSocials && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.15 }}
+            className="fixed pointer-events-none z-[100] text-white font-sans text-[10px] tracking-widest uppercase bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-xl"
+            style={{ 
+              left: mousePos.x + 15, 
+              top: mousePos.y + 15 
+            }}
+          >
+            Click!
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -120,9 +149,14 @@ export default function Footer() {
       
       <div className="absolute bottom-6 left-0 w-full flex flex-col md:flex-row justify-between items-center gap-4 px-6 md:px-12 text-sm md:text-base font-medium tracking-widest uppercase text-white/40">
         <span>© 2026 Savira Az Zahra Arnindhita</span>
-        <div className="flex gap-6">
-          <a href="https://www.instagram.com/zarradee?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
-          <a href="https://www.behance.net/saviraarnindh" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Behance</a>
+        <div 
+          className="flex gap-6 items-center mt-4 md:mt-0"
+          onMouseEnter={() => setIsHoveringSocials(true)}
+          onMouseLeave={() => setIsHoveringSocials(false)}
+        >
+          <a href="https://www.instagram.com/zarradee?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors cursor-none">Instagram</a>
+          <a href="https://www.behance.net/saviraarnindh" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors cursor-none">Behance</a>
+          <a href="https://www.linkedin.com/in/savira-az-zahra-arnindhita-63a273326" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors cursor-none">LinkedIn</a>
         </div>
       </div>
     </footer>

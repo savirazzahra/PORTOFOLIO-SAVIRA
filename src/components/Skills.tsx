@@ -19,6 +19,42 @@ const IconC = ({ size = 24, color = "currentColor", strokeWidth = 2, ...props }:
   </svg>
 );
 
+const PsIcon = ({ size = 24, color = "currentColor", strokeWidth = 2, ...props }: any) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke={color} 
+    strokeWidth={strokeWidth} 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    {...props}
+  >
+    <rect x="3" y="3" width="18" height="18" rx="4" />
+    <text x="12" y="12" fontSize="11" fontWeight="bold" textAnchor="middle" dominantBaseline="central" fill={color} stroke="none" fontFamily="sans-serif">Ps</text>
+  </svg>
+);
+
+const AiIcon = ({ size = 24, color = "currentColor", strokeWidth = 2, ...props }: any) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke={color} 
+    strokeWidth={strokeWidth} 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    {...props}
+  >
+    <rect x="3" y="3" width="18" height="18" rx="4" />
+    <text x="12" y="12" fontSize="11" fontWeight="bold" textAnchor="middle" dominantBaseline="central" fill={color} stroke="none" fontFamily="sans-serif">Ai</text>
+  </svg>
+);
+
 const skills = [
   { name: 'Ibis Paint X', score: 10, icon: Brush, color: 'text-pink-300' },
   { name: 'Lightroom', score: 9.5, icon: Aperture, color: 'text-blue-400' },
@@ -26,6 +62,8 @@ const skills = [
   { name: 'Clip Studio Paint', score: 8.5, icon: Palette, color: 'text-indigo-300' },
   { name: 'Canva', score: 8.5, icon: IconC, color: 'text-cyan-300' },
   { name: 'Corel Draw', score: 7, icon: PenTool, color: 'text-green-300' },
+  { name: 'Adobe Photoshop', score: 8, icon: PsIcon, color: 'text-blue-500' },
+  { name: 'Adobe Illustrator', score: 7.5, icon: AiIcon, color: 'text-orange-400' },
 ];
 
 const softSkills = [

@@ -24,7 +24,7 @@ const row3 = [
 ];
 
 const row4 = [
-  { id: 13, title: 'Editorial', src: 'https://github.com/user-attachments/assets/c9ba74fc-73cd-43b3-8747-2133d0e2fa6d', shape: 'landscape' },
+  { id: 13, title: 'Editorial', src: 'https://github.com/user-attachments/assets/3a2213e6-d4e5-4618-bf33-083bac448257', shape: 'landscape' },
   { id: 14, title: 'Poster', src: 'https://github.com/user-attachments/assets/f6979b02-ba6b-4de8-b86a-5f9e6f030586', shape: 'portrait' },
   { id: 15, title: 'Web Design', src: 'https://github.com/user-attachments/assets/17d3f935-31da-44aa-b567-1a442d4a843f', shape: 'landscape' },
   { id: 16, title: 'Logo', src: 'https://github.com/user-attachments/assets/93c04045-4ed0-4048-ae5a-1022ca02ed34', shape: 'portrait' },
